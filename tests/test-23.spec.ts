@@ -1,0 +1,24 @@
+import { test, expect } from '@playwright/test';
+
+test('test', async ({ page }) => {
+  await page.goto('https://www.swifttranslator.com/');
+  await page.getByRole('textbox', { name: 'Input Your Singlish Text Here.' }).click();
+  await page.getByRole('textbox', { name: 'Input Your Singlish Text Here.' }).fill('ov ov paasal katayuthu ivara unaama rassaavak karanna hithan innavaa.');
+  await page.getByRole('textbox', { name: 'Input Your Singlish Text Here.' }).click();
+  page.once('dialog', dialog => {
+    console.log(`Dialog message: ${dialog.message()}`);
+    dialog.dismiss().catch(() => {});
+  });
+  await page.getByRole('button', { name: 'Copy' }).first().click();
+  await page.getByText('ඔව් ඔව් පාසල් කටයුතු ඉවර උනාම රස්සාවක් කරන්න හිතන් ඉන්නවා').click();
+  page.once('dialog', dialog => {
+    console.log(`Dialog message: ${dialog.message()}`);
+    dialog.dismiss().catch(() => {});
+  });
+  await page.getByRole('button', { name: 'Copy' }).nth(1).click();
+  page.once('dialog', dialog => {
+    console.log(`Dialog message: ${dialog.message()}`);
+    dialog.dismiss().catch(() => {});
+  });
+  await page.getByRole('button', { name: 'Copy' }).nth(1).click();
+});
